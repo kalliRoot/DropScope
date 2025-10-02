@@ -3,19 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DropScope - Análise com Câmera</title>
+    <title>DropScope - Análise de Papel Hidrossensível</title>
     <style>
-        :root {
-            --primary: #2e7d32;
-            --primary-light: #4caf50;
-            --primary-dark: #1b5e20;
-            --secondary: #ff9800;
-            --text: #333;
-            --light: #f5f5f5;
-            --white: #ffffff;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
         * {
             margin: 0;
             padding: 0;
@@ -24,128 +13,93 @@
         }
         
         body {
-            color: var(--text);
-            background-color: var(--light);
+            background: #f5f5f5;
+            color: #333;
             line-height: 1.6;
         }
         
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
         
-        /* Header */
         header {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            position: sticky;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
         
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 1rem 0;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 40px;
-            margin-right: 10px;
-        }
-        
-        .logo h1 {
             font-size: 1.5rem;
-            color: var(--primary);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 25px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
+            font-weight: bold;
+            color: #2e7d32;
         }
         
         .btn {
-            display: inline-block;
-            background-color: var(--primary);
+            background: #2e7d32;
             color: white;
             padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
             margin: 5px;
+            transition: background 0.3s;
         }
         
         .btn:hover {
-            background-color: var(--primary-dark);
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary);
-        }
-        
-        .btn-secondary:hover {
-            background-color: #e68900;
+            background: #1b5e20;
         }
         
         .btn-camera {
-            background-color: #2196F3;
+            background: #2196F3;
         }
         
         .btn-camera:hover {
-            background-color: #0b7dda;
+            background: #0b7dda;
         }
         
-        /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
             color: white;
-            padding: 100px 0;
+            padding: 120px 0 80px;
             text-align: center;
         }
         
-        .hero h2 {
+        .hero h1 {
             font-size: 2.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
         
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        
-        /* Camera Section */
-        .camera-section {
+        .section {
             padding: 80px 0;
-            background-color: var(--white);
+        }
+        
+        .camera-section {
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
         }
         
         .camera-container {
@@ -156,15 +110,15 @@
         }
         
         .camera-preview {
-            background-color: #000;
-            border-radius: 8px;
+            background: #000;
+            border-radius: 10px;
             overflow: hidden;
-            position: relative;
             min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            position: relative;
         }
         
         #video, #photoCanvas {
@@ -175,369 +129,242 @@
         
         .camera-controls {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 10px;
             margin-top: 20px;
-        }
-        
-        .captured-image {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        #capturedImage {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            justify-content: center;
         }
         
         .analysis-results {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
         }
         
         .result-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
         }
         
         .progress-bar {
             width: 100%;
             height: 20px;
-            background-color: #e0e0e0;
+            background: #e9ecef;
             border-radius: 10px;
-            margin: 10px 0;
+            margin: 15px 0;
             overflow: hidden;
         }
         
         .progress {
             height: 100%;
-            background-color: var(--primary);
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
             border-radius: 10px;
-            transition: width 0.3s;
+            transition: width 0.5s ease;
         }
         
-        /* Features Section */
-        .section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            max-width: 700px;
-            margin: 0 auto;
-            color: #666;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: var(--white);
+        .recommendations {
+            background: #e8f5e8;
+            padding: 20px;
             border-radius: 8px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            margin-top: 20px;
+            border-left: 4px solid #4caf50;
         }
         
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-icon {
-            background-color: var(--primary-light);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-            }
-            
-            .nav-links {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .nav-links li {
-                margin: 5px 10px;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .camera-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .hidden {
             display: none;
         }
-
-        .analysis-loading {
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             text-align: center;
-            padding: 20px;
         }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 2s linear infinite;
-            margin: 0 auto 15px;
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        
+        footer {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .camera-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <nav class="navbar">
-                <div class="logo">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L9 10.5V12H15V10.5L21 9ZM15 19H9V14H15V19ZM18 14V21H6V14H4V21C4 22.1 4.9 23 6 23H18C19.1 23 20 22.1 20 21V14H18Z" fill="#2e7d32"/>
-                    </svg>
-                    <h1>DropScope</h1>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#features">Funcionalidades</a></li>
-                    <li><a href="#camera">Análise por Câmera</a></li>
-                    <li><a href="#reports">Relatórios</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-                <a href="#camera" class="btn">Usar Câmera</a>
+                <div class="logo">DropScope</div>
+                <a href="#camera" class="btn">Analisar Agora</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h2>Análise de Gotas com Câmera do Celular</h2>
-            <p>Use a câmera do seu dispositivo para analisar papéis hidrossensíveis e contar gotas automaticamente</p>
-            <a href="#camera" class="btn btn-camera">Iniciar Análise por Câmera</a>
+            <h1>Análise de Papel Hidrossensível</h1>
+            <p>Use a câmera do seu celular para analisar gotas de pulverização automaticamente</p>
+            <a href="#camera" class="btn btn-camera">Começar Análise</a>
         </div>
     </section>
 
-    <!-- Camera Analysis Section -->
-    <section id="camera" class="camera-section">
+    <section id="camera" class="section camera-section">
         <div class="container">
             <div class="section-title">
                 <h2>Análise por Câmera</h2>
-                <p>Posicione o papel hidrossensível na câmera para análise automática das gotas</p>
+                <p>Posicione o papel hidrossensível e capture a imagem para análise</p>
             </div>
             
             <div class="camera-container">
-                <div class="camera-interface">
+                <div>
                     <div class="camera-preview">
                         <video id="video" autoplay playsinline></video>
                         <canvas id="photoCanvas" class="hidden"></canvas>
                         <div id="cameraPlaceholder">
-                            <p>Clique em "Iniciar Câmera" para começar</p>
+                            <p style="font-size: 1.2rem;">📷 Clique em "Iniciar Câmera"</p>
                         </div>
                     </div>
                     
                     <div class="camera-controls">
                         <button id="startCamera" class="btn btn-camera">Iniciar Câmera</button>
-                        <button id="captureBtn" class="btn btn-secondary" disabled>Capturar Foto</button>
+                        <button id="captureBtn" class="btn" disabled>Capturar Foto</button>
                         <button id="analyzeBtn" class="btn" disabled>Analisar Gotas</button>
                         <button id="resetBtn" class="btn">Nova Análise</button>
-                    </div>
-                    
-                    <div class="captured-image hidden" id="capturedImageContainer">
-                        <h3>Imagem Capturada:</h3>
-                        <img id="capturedImage" alt="Imagem capturada para análise">
                     </div>
                 </div>
                 
                 <div class="analysis-results">
-                    <h3>Resultados da Análise</h3>
+                    <h3 style="margin-bottom: 20px; color: #2e7d32;">Resultados da Análise</h3>
                     <div id="analysisPlaceholder">
                         <p>Capture uma foto do papel hidrossensível para ver os resultados da análise</p>
                     </div>
                     
                     <div id="resultsContent" class="hidden">
                         <div class="result-item">
-                            <span>Total de Gotas Detectadas:</span>
+                            <strong>Total de Gotas:</strong>
                             <span id="totalDrops">0</span>
                         </div>
                         <div class="result-item">
-                            <span>Densidade (gotas/cm²):</span>
+                            <strong>Densidade (gotas/cm²):</strong>
                             <span id="densityResult">0</span>
                         </div>
                         <div class="result-item">
-                            <span>Cobertura da Área:</span>
+                            <strong>Cobertura da Área:</strong>
                             <span id="coverageResult">0%</span>
                         </div>
                         <div class="progress-bar">
                             <div id="coverageProgress" class="progress" style="width: 0%"></div>
                         </div>
                         <div class="result-item">
-                            <span>Tamanho Médio das Gotas:</span>
+                            <strong>Tamanho Médio:</strong>
                             <span id="avgSizeResult">0 μm</span>
                         </div>
                         <div class="result-item">
-                            <span>Uniformidade:</span>
-                            <span id="uniformityResult">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span>Qualidade da Pulverização:</span>
+                            <strong>Qualidade:</strong>
                             <span id="qualityResult">-</span>
                         </div>
                         
-                        <div class="recommendations" style="margin-top: 20px;">
-                            <h4>Recomendações:</h4>
-                            <p id="recommendationText">Aguardando análise...</p>
+                        <div class="recommendations">
+                            <h4>💡 Recomendações:</h4>
+                            <p id="recommendationText">Aguardando análise da imagem...</p>
                         </div>
                     </div>
-                    
-                    <div id="analysisLoading" class="analysis-loading hidden">
-                        <div class="spinner"></div>
-                        <p>Analisando imagem... Detectando e contando gotas</p>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="section">
+    <section class="section">
         <div class="container">
             <div class="section-title">
-                <h2>Como Funciona a Análise por Câmera</h2>
-                <p> Tecnologia avançada para análise precisa de papéis hidrossensíveis</p>
+                <h2>Como Funciona</h2>
+                <p>Tecnologia avançada para análise precisa de pulverização</p>
             </div>
-            <div class="features-grid">
+            
+            <div class="features">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i>📷</i>
-                    </div>
-                    <h3>Capture com a Câmera</h3>
-                    <p>Use a câmera do seu celular para fotografar o papel hidrossensível. Garanta boa iluminação e foco.</p>
+                    <div class="feature-icon">📸</div>
+                    <h3>Capture</h3>
+                    <p>Use a câmera do celular para fotografar o papel hidrossensível</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i>🔍</i>
-                    </div>
-                    <h3>Detecção Automática</h3>
-                    <p>Algoritmos inteligentes detectam e contam automaticamente as gotas no papel.</p>
+                    <div class="feature-icon">🔍</div>
+                    <h3>Analise</h3>
+                    <p>Algoritmos detectam e contam automaticamente as gotas</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i>📊</i>
-                    </div>
-                    <h3>Análise Completa</h3>
-                    <p>Calcule densidade, cobertura, tamanho médio e uniformidade da pulverização.</p>
+                    <div class="feature-icon">📊</div>
+                    <h3>Resultados</h3>
+                    <p>Receba análise completa com densidade e cobertura</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i>💾</i>
-                    </div>
-                    <h3>Salve Resultados</h3>
-                    <p>Armazene análises para comparar e acompanhar a evolução da pulverização.</p>
+                    <div class="feature-icon">💡</div>
+                    <h3>Otimize</h3>
+                    <p>Melhore sua pulverização com recomendações precisas</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>DropScope</h3>
-                    <p>Solução inovadora para análise digital da pulverização agrícola usando a câmera do celular.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Links Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#features">Funcionalidades</a></li>
-                        <li><a href="#camera">Análise por Câmera</a></li>
-                        <li><a href="#reports">Relatórios</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contato</h3>
-                    <ul class="footer-links">
-                        <li>Email: contato@dropscope.com</li>
-                        <li>Telefone: (11) 99999-9999</li>
-                        <li>Suporte: suporte@dropscope.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 DropScope. Todos os direitos reservados.</p>
-            </div>
+            <p>DropScope &copy; 2023 - Análise de Pulverização Agrícola</p>
         </div>
     </footer>
 
     <script>
-        // Elementos da câmera
+        // Elementos da DOM
         const video = document.getElementById('video');
         const canvas = document.getElementById('photoCanvas');
-        const capturedImage = document.getElementById('capturedImage');
         const startCameraBtn = document.getElementById('startCamera');
         const captureBtn = document.getElementById('captureBtn');
         const analyzeBtn = document.getElementById('analyzeBtn');
         const resetBtn = document.getElementById('resetBtn');
         const cameraPlaceholder = document.getElementById('cameraPlaceholder');
-        const capturedImageContainer = document.getElementById('capturedImageContainer');
         const analysisPlaceholder = document.getElementById('analysisPlaceholder');
         const resultsContent = document.getElementById('resultsContent');
-        const analysisLoading = document.getElementById('analysisLoading');
-
+        
         // Elementos de resultados
         const totalDrops = document.getElementById('totalDrops');
         const densityResult = document.getElementById('densityResult');
         const coverageResult = document.getElementById('coverageResult');
         const coverageProgress = document.getElementById('coverageProgress');
         const avgSizeResult = document.getElementById('avgSizeResult');
-        const uniformityResult = document.getElementById('uniformityResult');
         const qualityResult = document.getElementById('qualityResult');
         const recommendationText = document.getElementById('recommendationText');
-
+        
         let stream = null;
 
         // Iniciar câmera
@@ -559,8 +386,8 @@
                 startCameraBtn.textContent = 'Câmera Ativa';
                 
             } catch (err) {
-                console.error('Erro ao acessar a câmera:', err);
-                alert('Não foi possível acessar a câmera. Verifique as permissões.');
+                alert('Erro ao acessar a câmera. Verifique as permissões do navegador.');
+                console.error('Erro câmera:', err);
             }
         });
 
@@ -571,12 +398,10 @@
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             
-            // Converter canvas para imagem
-            capturedImage.src = canvas.toDataURL('image/png');
-            capturedImageContainer.classList.remove('hidden');
             analyzeBtn.disabled = false;
+            captureBtn.disabled = true;
             
-            // Parar a câmera após captura para economizar bateria
+            // Parar câmera para economizar bateria
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
             }
@@ -585,100 +410,66 @@
         // Analisar imagem
         analyzeBtn.addEventListener('click', () => {
             analysisPlaceholder.classList.add('hidden');
-            analysisLoading.classList.remove('hidden');
-            resultsContent.classList.add('hidden');
-            
-            // Simular processamento (em um sistema real, isso seria processamento de imagem real)
-            setTimeout(() => {
-                analyzeDropletsFromImage();
-            }, 2000);
+            resultsContent.classList.remove('hidden');
+            analyzeDropletsFromImage();
         });
 
         // Nova análise
         resetBtn.addEventListener('click', () => {
-            // Limpar resultados
-            capturedImageContainer.classList.add('hidden');
-            analysisPlaceholder.classList.remove('hidden');
-            resultsContent.classList.add('hidden');
-            analysisLoading.classList.add('hidden');
-            
-            // Resetar controles
-            analyzeBtn.disabled = true;
-            captureBtn.disabled = true;
-            startCameraBtn.disabled = false;
-            startCameraBtn.textContent = 'Iniciar Câmera';
-            
-            // Limpar imagem
-            capturedImage.src = '';
-            
-            // Parar câmera se estiver ativa
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-            }
+            location.reload(); // Método mais simples para resetar
         });
 
-        // Função de análise de gotas (simulada)
+        // Função de análise (simulada)
         function analyzeDropletsFromImage() {
-            // Em um sistema real, aqui seria processamento real de imagem
-            // Por enquanto, vamos gerar dados simulados baseados em "análise de imagem"
+            // Simular processamento de imagem
+            const gotas = Math.floor(Math.random() * 150) + 50;
+            const densidade = Math.floor(gotas / 2);
+            const cobertura = Math.floor(Math.random() * 50) + 30;
+            const tamanhoMedio = Math.floor(Math.random() * 250) + 100;
             
-            // Simular detecção de gotas (valores aleatórios mas realistas)
-            const simulatedDrops = Math.floor(Math.random() * 200) + 50; // 50-250 gotas
-            const simulatedDensity = Math.floor(simulatedDrops / 2.5); // gotas/cm²
-            const simulatedCoverage = Math.floor(Math.random() * 40) + 30; // 30-70%
-            const simulatedAvgSize = Math.floor(Math.random() * 300) + 100; // 100-400μm
+            // Determinar qualidade
+            let qualidade = "Ótima";
+            let recomendacao = "A pulverização está dentro dos parâmetros ideais. Continue com as configurações atuais.";
             
-            // Calcular uniformidade baseada na cobertura
-            let uniformity = 'Boa';
-            let quality = 'Ótima';
-            let recommendation = 'A pulverização está dentro dos parâmetros ideais.';
-            
-            if (simulatedCoverage < 40) {
-                uniformity = 'Ruim';
-                quality = 'Precisa Melhorar';
-                recommendation = 'Cobertura insuficiente. Ajuste o volume de calda ou verifique os bicos.';
-            } else if (simulatedCoverage > 65) {
-                uniformity = 'Regular';
-                quality = 'Boa';
-                recommendation = 'Cobertura adequada, mas pode ser otimizada.';
+            if (cobertura < 40) {
+                qualidade = "Precisa melhorar";
+                recomendacao = "Cobertura insuficiente. Aumente o volume de calda ou verifique os bicos de pulverização.";
+            } else if (cobertura > 70) {
+                qualidade = "Excessiva";
+                recomendacao = "Cobertura excessiva. Reduza o volume para evitar escorrimento e desperdício.";
             }
             
-            if (simulatedAvgSize < 150) {
-                quality = 'Risco de Deriva';
-                recommendation = 'Gotas muito finas. Risco de deriva elevado. Use bicos que produzam gotas maiores.';
-            } else if (simulatedAvgSize > 350) {
-                quality = 'Má Distribuição';
-                recommendation = 'Gotas muito grossas. Pode haver má distribuição. Use bicos que produzam gotas menores.';
+            if (tamanhoMedio < 150) {
+                qualidade = "Risco de deriva";
+                recomendacao = "Gotas muito finas. Risco de deriva elevado. Use bicos que produzam gotas maiores.";
+            } else if (tamanhoMedio > 350) {
+                qualidade = "Má distribuição";
+                recomendacao = "Gotas muito grossas. Pode haver má distribuição. Use bicos que produzam gotas menores.";
             }
-            
-            // Atualizar interface
-            totalDrops.textContent = simulatedDrops;
-            densityResult.textContent = simulatedDensity;
-            coverageResult.textContent = simulatedCoverage + '%';
-            coverageProgress.style.width = simulatedCoverage + '%';
-            avgSizeResult.textContent = simulatedAvgSize + ' μm';
-            uniformityResult.textContent = uniformity;
-            qualityResult.textContent = quality;
-            recommendationText.textContent = recommendation;
-            
-            // Mostrar resultados
-            analysisLoading.classList.add('hidden');
-            resultsContent.classList.remove('hidden');
-            
-            // Em um sistema real, aqui teríamos:
-            // 1. Processamento real da imagem com Canvas API
-            // 2. Detecção de círculos/bordas (gotas)
-            // 3. Cálculo de áreas e distribuição
-            // 4. Algoritmos de visão computacional
+
+            // Atualizar resultados
+            totalDrops.textContent = gotas;
+            densityResult.textContent = densidade;
+            coverageResult.textContent = cobertura + '%';
+            coverageProgress.style.width = cobertura + '%';
+            avgSizeResult.textContent = tamanhoMedio + ' μm';
+            qualityResult.textContent = qualidade;
+            recommendationText.textContent = recomendacao;
         }
 
-        // Dica para melhor qualidade de análise
-        console.log("Dica: Para melhor análise, fotografe o papel hidrossensível em:");
-        console.log("- Boa iluminação natural");
-        console.log("- Fundo contrastante");
-        console.log("- Preencha todo o campo da câmera com o papel");
-        console.log("- Mantenha a câmera paralela ao papel");
+        // Smooth scroll para links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
