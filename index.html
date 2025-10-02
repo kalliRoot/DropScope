@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DropScope - Análise de Papel Hidrossensível</title>
+    <title>DropScope - Análise de Tamanho de Gotas</title>
     <style>
         * {
             margin: 0;
@@ -166,12 +166,49 @@
             transition: width 0.5s ease;
         }
         
+        .droplet-scale {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .droplet-category {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0 2px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .very-fine { background: #ff6b6b; color: white; }
+        .fine { background: #ffa726; color: white; }
+        .medium { background: #ffd54f; }
+        .coarse { background: #aed581; }
+        .very-coarse { background: #4caf50; color: white; }
+        .extra-coarse { background: #2e7d32; color: white; }
+        
         .recommendations {
             background: #e8f5e8;
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
             border-left: 4px solid #4caf50;
+        }
+        
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+        
+        .alert {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
         }
         
         .hidden {
@@ -219,6 +256,15 @@
                 flex-direction: column;
                 gap: 15px;
             }
+            
+            .droplet-scale {
+                flex-wrap: wrap;
+            }
+            
+            .droplet-category {
+                flex: 1 0 33%;
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
@@ -234,8 +280,8 @@
 
     <section class="hero">
         <div class="container">
-            <h1>Análise de Papel Hidrossensível</h1>
-            <p>Use a câmera do seu celular para analisar gotas de pulverização automaticamente</p>
+            <h1>Análise de Tamanho de Gotas</h1>
+            <p>Evite a deriva e maximize a eficiência da pulverização</p>
             <a href="#camera" class="btn btn-camera">Começar Análise</a>
         </div>
     </section>
@@ -245,6 +291,15 @@
             <div class="section-title">
                 <h2>Análise por Câmera</h2>
                 <p>Posicione o papel hidrossensível e capture a imagem para análise</p>
+            </div>
+            
+            <div class="droplet-scale">
+                <div class="droplet-category very-fine">MUITO FINA<br>&lt; 150µm</div>
+                <div class="droplet-category fine">FINA<br>150-250µm</div>
+                <div class="droplet-category medium">MÉDIA<br>250-350µm</div>
+                <div class="droplet-category coarse">GROSSA<br>350-450µm</div>
+                <div class="droplet-category very-coarse">MUITO GROSSA<br>450-600µm</div>
+                <div class="droplet-category extra-coarse">EXTRA GROSSA<br>&gt; 600µm</div>
             </div>
             
             <div class="camera-container">
@@ -292,13 +347,19 @@
                             <span id="avgSizeResult">0 μm</span>
                         </div>
                         <div class="result-item">
-                            <strong>Qualidade:</strong>
-                            <span id="qualityResult">-</span>
+                            <strong>Classificação:</strong>
+                            <span id="classificationResult">-</span>
+                        </div>
+                        <div class="result-item">
+                            <strong>Risco de Deriva:</strong>
+                            <span id="driftRiskResult">-</span>
                         </div>
                         
-                        <div class="recommendations">
-                            <h4>💡 Recomendações:</h4>
-                            <p id="recommendationText">Aguardando análise da imagem...</p>
+                        <div id="recommendationContainer">
+                            <div class="recommendations">
+                                <h4>💡 Recomendações:</h4>
+                                <p id="recommendationText">Aguardando análise da imagem...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -309,30 +370,30 @@
     <section class="section">
         <div class="container">
             <div class="section-title">
-                <h2>Como Funciona</h2>
-                <p>Tecnologia avançada para análise precisa de pulverização</p>
+                <h2>Importância do Tamanho de Gotas</h2>
+                <p>Entenda como o tamanho das gotas afeta a eficiência da pulverização</p>
             </div>
             
             <div class="features">
                 <div class="feature-card">
-                    <div class="feature-icon">📸</div>
-                    <h3>Capture</h3>
-                    <p>Use a câmera do celular para fotografar o papel hidrossensível</p>
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Risco de Deriva</h3>
+                    <p>Gotas abaixo de 150µm são levadas pelo vento, contaminando áreas vizinhas e desperdiçando produto</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Analise</h3>
-                    <p>Algoritmos detectam e contam automaticamente as gotas</p>
+                    <div class="feature-icon">🎯</div>
+                    <h3>Precisão</h3>
+                    <p>Gotas entre 250-450µm têm melhor deposição no alvo e menor risco de deriva</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Resultados</h3>
-                    <p>Receba análise completa com densidade e cobertura</p>
+                    <div class="feature-icon">💰</div>
+                    <h3>Economia</h3>
+                    <p>Reduza desperdícios em até 30% usando o tamanho correto de gotas</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h3>Otimize</h3>
-                    <p>Melhore sua pulverização com recomendações precisas</p>
+                    <div class="feature-icon">🌱</div>
+                    <h3>Ambiente</h3>
+                    <p>Minimize a contaminação ambiental com pulverização precisa</p>
                 </div>
             </div>
         </div>
@@ -355,6 +416,7 @@
         const cameraPlaceholder = document.getElementById('cameraPlaceholder');
         const analysisPlaceholder = document.getElementById('analysisPlaceholder');
         const resultsContent = document.getElementById('resultsContent');
+        const recommendationContainer = document.getElementById('recommendationContainer');
         
         // Elementos de resultados
         const totalDrops = document.getElementById('totalDrops');
@@ -362,7 +424,8 @@
         const coverageResult = document.getElementById('coverageResult');
         const coverageProgress = document.getElementById('coverageProgress');
         const avgSizeResult = document.getElementById('avgSizeResult');
-        const qualityResult = document.getElementById('qualityResult');
+        const classificationResult = document.getElementById('classificationResult');
+        const driftRiskResult = document.getElementById('driftRiskResult');
         const recommendationText = document.getElementById('recommendationText');
         
         let stream = null;
@@ -416,8 +479,71 @@
 
         // Nova análise
         resetBtn.addEventListener('click', () => {
-            location.reload(); // Método mais simples para resetar
+            location.reload();
         });
+
+        // Classificar tamanho de gota
+        function classifyDropletSize(size) {
+            if (size < 150) return { category: "MUITO FINA", risk: "ALTO", color: "very-fine" };
+            if (size < 250) return { category: "FINA", risk: "MODERADO", color: "fine" };
+            if (size < 350) return { category: "MÉDIA", risk: "BAIXO", color: "medium" };
+            if (size < 450) return { category: "GROSSA", risk: "MÍNIMO", color: "coarse" };
+            if (size < 600) return { category: "MUITO GROSSA", risk: "MÍNIMO", color: "very-coarse" };
+            return { category: "EXTRA GROSSA", risk: "MÍNIMO", color: "extra-coarse" };
+        }
+
+        // Gerar recomendações baseadas na análise
+        function generateRecommendations(avgSize, coverage, density) {
+            let recommendations = "";
+            let cssClass = "recommendations";
+            
+            const classification = classifyDropletSize(avgSize);
+            
+            if (avgSize < 150) {
+                recommendations = "🚨 ALTO RISCO DE DERIVA - Gotas muito finas (&lt;150µm) são facilmente carregadas pelo vento. Recomendações urgentes: ";
+                recommendations += "• Troque os bicos para modelos que produzam gotas maiores ";
+                recommendations += "• Aumente a pressão de pulverização ";
+                recommendations += "• Evite pulverizar com ventos acima de 10 km/h ";
+                recommendations += "• Considere usar adjuvantes antideriva";
+                cssClass += " warning";
+            }
+            else if (avgSize < 250) {
+                recommendations = "⚠️ RISCO MODERADO - Gotas finas (150-250µm) ainda apresentam risco de deriva. Recomendações: ";
+                recommendations += "• Verifique o desgaste dos bicos ";
+                recommendations += "• Ajuste a pressão para gotas entre 250-350µm ";
+                recommendations += "• Monitore as condições climáticas durante a aplicação";
+                cssClass += " alert";
+            }
+            else if (avgSize >= 250 && avgSize <= 450) {
+                recommendations = "✅ TAMANHO IDEAL - Gotas entre 250-450µm oferecem melhor compromisso entre cobertura e retenção. ";
+                recommendations += "• Mantenha as configurações atuais ";
+                recommendations += "• Continue monitorando regularmente ";
+                recommendations += "• Ótima eficiência de aplicação";
+            }
+            else {
+                recommendations = "ℹ️ GOTAS GROSSAS - Acima de 450µm podem ter menor cobertura. Verifique: ";
+                recommendations += "• Se a cobertura está adequada para o alvo ";
+                recommendations += "• Se há necessidade de maior volume de calda ";
+                recommendations += "• A uniformidade de distribuição";
+            }
+            
+            // Adicionar recomendações de cobertura
+            if (coverage < 30) {
+                recommendations += "<br><br>📉 COBERTURA INSUFICIENTE - Apenas " + coverage + "% de cobertura. ";
+                recommendations += "• Aumente o volume de aplicação ";
+                recommendations += "• Verifique a velocidade de deslocamento ";
+                recommendations += "• Confirme a vazão dos bicos";
+            }
+            else if (coverage > 70) {
+                recommendations += "<br><br>💧 COBERTURA EXCESSIVA - " + coverage + "% pode causar escorrimento. ";
+                recommendations += "• Reduza o volume de aplicação ";
+                recommendations += "• Aumente a velocidade de deslocamento ";
+                recommendations += "• Otimize para economizar produtos";
+            }
+            
+            // Atualizar container de recomendações
+            recommendationContainer.innerHTML = `<div class="${cssClass}"><h4>💡 Recomendações:</h4><p>${recommendations}</p></div>`;
+        }
 
         // Função de análise (simulada)
         function analyzeDropletsFromImage() {
@@ -425,36 +551,27 @@
             const gotas = Math.floor(Math.random() * 150) + 50;
             const densidade = Math.floor(gotas / 2);
             const cobertura = Math.floor(Math.random() * 50) + 30;
-            const tamanhoMedio = Math.floor(Math.random() * 250) + 100;
+            const tamanhoMedio = Math.floor(Math.random() * 500) + 100; // 100-600µm
             
-            // Determinar qualidade
-            let qualidade = "Ótima";
-            let recomendacao = "A pulverização está dentro dos parâmetros ideais. Continue com as configurações atuais.";
+            // Classificar o tamanho das gotas
+            const classification = classifyDropletSize(tamanhoMedio);
             
-            if (cobertura < 40) {
-                qualidade = "Precisa melhorar";
-                recomendacao = "Cobertura insuficiente. Aumente o volume de calda ou verifique os bicos de pulverização.";
-            } else if (cobertura > 70) {
-                qualidade = "Excessiva";
-                recomendacao = "Cobertura excessiva. Reduza o volume para evitar escorrimento e desperdício.";
-            }
-            
-            if (tamanhoMedio < 150) {
-                qualidade = "Risco de deriva";
-                recomendacao = "Gotas muito finas. Risco de deriva elevado. Use bicos que produzam gotas maiores.";
-            } else if (tamanhoMedio > 350) {
-                qualidade = "Má distribuição";
-                recomendacao = "Gotas muito grossas. Pode haver má distribuição. Use bicos que produzam gotas menores.";
-            }
+            // Determinar risco de deriva
+            let riscoDeriva = "ALTO";
+            if (tamanhoMedio >= 250) riscoDeriva = "BAIXO";
+            else if (tamanhoMedio >= 150) riscoDeriva = "MODERADO";
 
             // Atualizar resultados
             totalDrops.textContent = gotas;
             densityResult.textContent = densidade;
             coverageResult.textContent = cobertura + '%';
             coverageProgress.style.width = cobertura + '%';
-            avgSizeResult.textContent = tamanhoMedio + ' μm';
-            qualityResult.textContent = qualidade;
-            recommendationText.textContent = recomendacao;
+            avgSizeResult.textContent = tamanhoMedio + ' µm';
+            classificationResult.textContent = classification.category;
+            driftRiskResult.textContent = riscoDeriva;
+            
+            // Gerar recomendações personalizadas
+            generateRecommendations(tamanhoMedio, cobertura, densidade);
         }
 
         // Smooth scroll para links
